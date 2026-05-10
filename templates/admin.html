@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Admin · Thai Numeral Recognition{% endblock %}
+
+{% block content %}
+<div class="admin-grid">
+
+  <div class="fade-up" style="margin-bottom:0.25rem">
+    <p class="page-title">Admin Panel</p>
+    <p class="page-subtitle">อัปโหลด model ใหม่เพื่อใช้งานกับระบบ (เก็บในหน่วยความจำ ไม่ถาวร)</p>
+  </div>
+
+  <!-- Current model status -->
+  <div class="card fade-up" id="model-status-card">
+    <p class="bars-title" style="margin-bottom:1rem">โมเดลที่ใช้งานอยู่</p>
+    <div class="model-status" id="model-status">
+      <div class="status-dot" id="status-dot"></div>
+      <div class="status-info">
+        <div class="status-name" id="status-name">กำลังโหลด…</div>
+        <div class="status-meta" id="status-meta"></div>
+      </div>
+      <span class="status-badge" id="status-badge"></span>
+    </div>
+    <table class="info-table" style="margin-top:1rem">
+      <tbody id="model-info-body"></tbody>
+    </table>
+    <div style="margin-top:1rem">
+      <button class="btn btn-danger" id="btn-reset" style="font-size:0.82rem;padding:8px 16px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             style="width:14px;height:14px"><polyline points="1 4 1 10 7 10"/>
+          <path d="M3.51 15a9 9 0 1 0 .49-3.17"/></svg>
+        รีเซ็ตเป็น original model
+      </button>
+    </div>
+  </div>
+
+  <!-- Upload zone -->
+  <div class="card fade-up">
+    <p class="bars-title" style="margin-bottom:1rem">อัปโหลด model ใหม่</p>
+    <div class="dropzone" id="dropzone">
+      <input type="file" id="model-file-input" accept=".h5,.keras" />
+      <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+        <polyline points="17 8 12 3 7 8"/>
+        <line x1="12" y1="3" x2="12" y2="15"/>
+      </svg>
+      <h3>ลากไฟล์มาวางที่นี่</h3>
+      <p>หรือคลิกเพื่อเลือกไฟล์ <strong>.h5</strong> / <strong>.keras</strong></p>
+    </div>
+    <div class="upload-progress" id="upload-progress">
+      <div class="upload-progress-fill" id="upload-progress-fill"></div>
+    </div>
+    <div id="selected-file-info" style="display:none;margin-top:1rem;padding:10px 14px;
+         background:var(--surface-hi);border-radius:var(--radius-sm);font-size:0.85rem;color:var(--text-muted)">
+      <span id="selected-file-name"></span>
+    </div>
+    <div class="btn-row" style="margin-top:1rem">
+      <button class="btn btn-primary" id="btn-upload" disabled style="flex:1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             style="width:16px;height:16px">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        อัปโหลด &amp; ใช้งาน
+      </button>
+    </div>
+    <p style="margin-top:1rem;font-size:0.78rem;color:var(--text-muted);line-height:1.6">
+      ⚠️ Model ที่อัปโหลดจะถูกโหลดเข้าหน่วยความจำเท่านั้น<br/>
+      หากรีสตาร์ท server ระบบจะกลับใช้ original model อัตโนมัติ
+    </p>
+  </div>
+
+</div>
+{% endblock %}

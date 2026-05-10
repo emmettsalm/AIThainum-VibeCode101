@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Thai Numeral Recognition{% endblock %}
+
+{% block content %}
+<div class="user-page">
+
+  <div class="user-header">
+    <h1 class="page-title">เขียนตัวเลขไทย</h1>
+    <div class="class-chips-row">
+      <span class="chips-label">วาดตัวเลขไทยหนึ่งในนี้:</span>
+      <div class="class-chips">
+        <span class="chip">๕๖</span>
+        <span class="chip">๕๗</span>
+        <span class="chip">๕๘</span>
+        <span class="chip">๕๙</span>
+        <span class="chip">๖๐</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="user-grid">
+
+    <!-- Left: drawing card -->
+    <div class="card draw-card">
+      <div class="canvas-area">
+        <canvas id="draw-canvas" width="400" height="400"></canvas>
+        <div class="canvas-hint" id="canvas-hint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+          </svg>
+          <span>วาดตัวเลขที่นี่</span>
+        </div>
+      </div>
+
+      <div class="pen-size-row">
+        <span class="pen-label">ขนาดปากกา</span>
+        <input type="range" id="pen-size" min="10" max="50" value="28" class="pen-slider" />
+        <div class="pen-preview" id="pen-preview"></div>
+      </div>
+
+      <div class="btn-row">
+        <button id="btn-clear" class="btn btn-secondary" style="flex:1">ล้าง</button>
+        <button id="btn-predict" class="btn btn-primary" style="flex:2">ทำนาย</button>
+      </div>
+    </div>
+
+    <!-- Right: result card -->
+    <div class="card result-card" id="result-card">
+
+      <div class="result-placeholder" id="result-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+        </svg>
+        <p>วาดตัวเลขแล้วกด <strong>"ทำนาย"</strong></p>
+      </div>
+
+      <div id="loading-overlay" style="display:none; text-align:center; padding:4rem 0">
+        <div class="spinner" style="margin:0 auto 1rem; width:34px; height:34px; border-width:3px"></div>
+        <p style="color:var(--text-muted); font-size:0.9rem">กำลังทำนาย…</p>
+      </div>
+
+      <div class="result-panel" id="result-panel" style="display:none">
+        <p class="result-label">ผลการทำนาย</p>
+        <div class="result-hero">
+          <div class="result-digit" id="result-digit"></div>
+          <div class="result-numeric" id="result-numeric"></div>
+          <span class="result-conf" id="result-conf"></span>
+        </div>
+        <div class="bars-section">
+          <p class="bars-title">Confidence per class</p>
+          <div id="bars-container"></div>
+        </div>
+
+        <div style="margin-top:1rem">
+          <p class="bars-title" style="margin-bottom:6px">Model เห็นแบบนี้ (28×28)</p>
+          <img id="preview-img" src="" alt="28x28 preview"
+               style="width:112px;height:112px;border-radius:6px;
+                      border:1px solid rgba(255,255,255,0.12);
+                      image-rendering:pixelated;background:#000" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}
