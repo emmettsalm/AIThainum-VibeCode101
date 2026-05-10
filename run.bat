@@ -51,7 +51,10 @@ echo [SETUP] Done.
 echo [OK] Starting server...
 venv\Scripts\python.exe app.py
 
-:end
 echo.
-echo Press any key to close...
-pause > nul
+set /p RESTART=Server stopped. Run again? (Y/N):
+if /i "%RESTART%"=="Y" goto :run
+
+:end
+echo Closed.
+
