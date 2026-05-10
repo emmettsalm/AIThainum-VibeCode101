@@ -5,7 +5,7 @@ echo  Thai Numeral Recognition
 echo  http://localhost:5000
 echo ==============================
 
-if not exist venv\Scripts\activate.bat (
+if not exist venv\Scripts\python.exe (
     echo [SETUP] Creating virtual environment...
     py -3.10 -m venv venv
     if errorlevel 1 (
@@ -13,14 +13,17 @@ if not exist venv\Scripts\activate.bat (
         pause
         exit /b 1
     )
-    echo [SETUP] Installing dependencies...
-    call venv\Scripts\activate.bat
-    pip install -r requirements.txt
+    echo [SETUP] Installing dependencies ^(this may take a few minutes^)...
+    venv\Scripts\pip install -r requirements.txt
+    if errorlevel 1 (
+        echo [ERROR] Failed to install dependencies.
+        pause
+        exit /b 1
+    )
     echo [SETUP] Done.
-) else (
-    call venv\Scripts\activate.bat
 )
 
 start "" /b cmd /c "timeout /t 3 /nobreak > nul && start http://localhost:5000"
-python app.py
+echo [OK] Starting server...
+venv\Scripts\python.exe app.py
 pause
