@@ -1,4 +1,11 @@
 @echo off
+:: Re-launch in a persistent CMD window so it never flashes and closes
+if "%LAUNCHED%"=="" (
+    set LAUNCHED=1
+    cmd /k ""%~f0""
+    exit
+)
+
 cd /d "%~dp0"
 echo ==============================
 echo  Thai Numeral Recognition
@@ -22,28 +29,29 @@ if not defined PYEXE (
     echo [ERROR] Python not found.
     echo         Install Python 3.10-3.12 from https://www.python.org/downloads/
     echo         Make sure to check "Add Python to PATH" during install.
-    pause
-    exit /b 1
+    goto :end
 )
 
 echo [SETUP] Creating virtual environment with %PYEXE% ...
 %PYEXE% -m venv venv
 if errorlevel 1 (
     echo [ERROR] Failed to create virtual environment.
-    pause
-    exit /b 1
+    goto :end
 )
 
 echo [SETUP] Installing dependencies (this may take a few minutes)...
 venv\Scripts\pip install -r requirements.txt
 if errorlevel 1 (
     echo [ERROR] Failed to install dependencies.
-    pause
-    exit /b 1
+    goto :end
 )
 echo [SETUP] Done.
 
 :run
 echo [OK] Starting server...
 venv\Scripts\python.exe app.py
-pause
+
+:end
+echo.
+echo Press any key to close...
+pause > nul
