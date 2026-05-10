@@ -23,7 +23,6 @@ if not exist venv\Scripts\python.exe (
     echo [SETUP] Done.
 )
 
-start "" /b cmd /c "timeout /t 3 /nobreak > nul && start http://localhost:5000"
 echo [OK] Starting server...
 venv\Scripts\python.exe app.py
 pause
