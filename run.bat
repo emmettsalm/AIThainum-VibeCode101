@@ -6,14 +6,22 @@ echo  http://localhost:5000
 echo ==============================
 
 if not exist venv\Scripts\python.exe (
-    echo [SETUP] Creating virtual environment...
-    py -3.10 -m venv venv
-    if errorlevel 1 (
-        echo [ERROR] Python 3.10 not found. Install from https://www.python.org/downloads/release/python-31011/
+    echo [SETUP] Looking for compatible Python (3.10 / 3.11 / 3.12)...
+    set PYEXE=
+    for %%v in (3.10 3.11 3.12) do (
+        if not defined PYEXE (
+            py -%%v --version >nul 2>&1 && set PYEXE=%%v
+        )
+    )
+    if not defined PYEXE (
+        echo [ERROR] Python 3.10-3.12 not found.
+        echo         Download: https://www.python.org/downloads/release/python-31011/
         pause
         exit /b 1
     )
-    echo [SETUP] Installing dependencies ^(this may take a few minutes^)...
+    echo [SETUP] Using Python %PYEXE% — creating virtual environment...
+    py -%PYEXE% -m venv venv
+    echo [SETUP] Installing dependencies (this may take a few minutes)...
     venv\Scripts\pip install -r requirements.txt
     if errorlevel 1 (
         echo [ERROR] Failed to install dependencies.
