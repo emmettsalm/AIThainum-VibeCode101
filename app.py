@@ -24,7 +24,7 @@ app = Flask(__name__)
 
 CLASS_LABELS = ["๕๖", "๕๗", "๕๘", "๕๙", "๖๐"]
 CLASS_NUMERIC = ["56", "57", "58", "59", "60"]
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "models", "thai_model.h5")
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "models", "thai_ultimate_model_v4.h5")
 
 _active_model = None
 _model_info = {}
