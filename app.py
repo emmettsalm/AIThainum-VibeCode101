@@ -34,7 +34,7 @@ def load_original_model():
     global _active_model, _model_info
     _active_model = tf.keras.models.load_model(MODEL_PATH)
     _model_info = {
-        "name": "thai_model.h5",
+        "name": os.path.basename(MODEL_PATH),
         "is_original": True,
         "input_shape": str(_active_model.input_shape),
         "output_classes": len(CLASS_LABELS),

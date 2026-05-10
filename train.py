@@ -13,6 +13,7 @@ Output: models/thai_model.h5  +  evaluation charts
 
 import os
 import sys
+sys.stdout.reconfigure(encoding="utf-8")
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"

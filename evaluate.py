@@ -50,15 +50,9 @@ for idx, cls in enumerate(CLASS_NAMES):
     files = [f for f in os.listdir(cls_dir) if f.lower().endswith((".png", ".jpg"))]
     print(f"  {cls} ({idx}) — {len(files)} images")
     for fname in files:
-        # Apply same preprocessing as canvas (app.py preprocess_canvas)
-        gray = np.array(
-            Image.open(os.path.join(cls_dir, fname)).convert("L"), dtype=np.uint8
-        )
-        if gray.mean() > 127:
-            gray = cv2.bitwise_not(gray)
-        _, gray = cv2.threshold(gray, 40, 255, cv2.THRESH_BINARY)
-        gray = cv2.resize(gray, (IMG_SIZE, IMG_SIZE))
-        X.append(gray.astype(np.float32) / 255.0)
+        img = Image.open(os.path.join(cls_dir, fname)).convert("L")
+        img = img.resize((IMG_SIZE, IMG_SIZE), Image.LANCZOS)
+        X.append(np.array(img, dtype=np.float32) / 255.0)
         y.append(idx)
 
 X = np.array(X).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
