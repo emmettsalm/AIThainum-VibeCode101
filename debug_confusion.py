@@ -6,10 +6,9 @@ from PIL import Image
 import numpy as np
 import tensorflow as tf
 
-model = tf.keras.models.load_model(
-    r'c:\Users\emmet\Documents\BU university\Year3term2\CS462\Project\CS462_with_python\models\thai_model.h5'
-)
-folder = r'c:\Users\emmet\Documents\BU university\Year3term2\CS462\Project\CS462_with_python\dataset_thai_v4\dataset_thai_v4'
+BASE = os.path.dirname(os.path.abspath(__file__))
+model = tf.keras.models.load_model(os.path.join(BASE, "models", "thai_ultimate_model_v4.h5"))
+folder = os.path.join(BASE, "dataset_thai_v4", "dataset_thai_v4")
 classes = sorted(os.listdir(folder))
 labels = ['56','57','58','59','60']
 

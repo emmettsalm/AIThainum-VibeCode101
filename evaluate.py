@@ -34,7 +34,7 @@ import tensorflow as tf
 
 BASE = os.path.dirname(__file__)
 DATASET_DIR = os.path.join(BASE, "dataset_thai_v4", "dataset_thai_v4")
-MODEL_PATH  = os.path.join(BASE, "models", "thai_model.h5")
+MODEL_PATH  = os.path.join(BASE, "models", "thai_ultimate_model_v4.h5")
 IMG_SIZE    = 28
 SEED        = 42
 
