@@ -30,9 +30,17 @@ _active_model = None
 _model_info = {}
 
 
+class _PatchedDense(tf.keras.layers.Dense):
+    def __init__(self, *args, **kwargs):
+        kwargs.pop("quantization_config", None)
+        super().__init__(*args, **kwargs)
+
+
 def load_original_model():
     global _active_model, _model_info
-    _active_model = tf.keras.models.load_model(MODEL_PATH)
+    _active_model = tf.keras.models.load_model(
+        MODEL_PATH, custom_objects={"Dense": _PatchedDense}
+    )
     _model_info = {
         "name": os.path.basename(MODEL_PATH),
         "is_original": True,
@@ -140,8 +148,15 @@ def upload_model():
         return jsonify({"error": "Only .h5 or .keras files are accepted"}), 400
 
     try:
-        buf = io.BytesIO(file.read())
-        new_model = tf.keras.models.load_model(buf)
+        import tempfile
+        suffix = ".keras" if file.filename.endswith(".keras") else ".h5"
+        tmp = tempfile.NamedTemporaryFile(suffix=suffix, delete=False)
+        file.save(tmp.name)
+        tmp.close()
+        new_model = tf.keras.models.load_model(
+            tmp.name, custom_objects={"Dense": _PatchedDense}
+        )
+        os.unlink(tmp.name)
 
         out_classes = new_model.output_shape[-1]
         if out_classes != len(CLASS_LABELS):
