@@ -12,6 +12,15 @@ echo  Thai Numeral Recognition
 echo  http://localhost:5000
 echo ==============================
 
+:: Check if path is too long (Windows limit is 260 chars)
+set "CURRENT_PATH=%~dp0"
+if not "%CURRENT_PATH:~200,1%"=="" (
+    echo [ERROR] โฟลเดอร์อยู่ลึกเกินไป path ยาวเกิน 200 ตัวอักษร
+    echo         กรุณาย้ายโฟลเดอร์นี้ไปไว้ที่ C:\CS462\ แล้วลองใหม่
+    echo         เช่น C:\CS462\AIThainum-VibeCode101-main\
+    goto :end
+)
+
 if exist venv\Scripts\python.exe goto :run
 
 echo [SETUP] Looking for Python 3.10 / 3.11 / 3.12 ...
