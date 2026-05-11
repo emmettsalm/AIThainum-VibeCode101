@@ -10,38 +10,28 @@
 
 ---
 
-## ข้อควรระวัง (สำคัญ)
+## วิธีใช้งาน (ทุก OS)
 
-> **Windows**: ต้องวางโฟลเดอร์ใน path ที่สั้น เช่น `C:\CS462\` หรือ `C:\Users\ชื่อ\Desktop\`
->
-> **อย่า**เปิดตรงจากโฟลเดอร์ Downloads โดยตรง โดยเฉพาะถ้าชื่อ user มีช่องว่าง
-> เพราะ Windows มีลิมิต 260 ตัวอักษร — ถ้า path ยาวเกิน tensorflow จะติดตั้งไม่ได้
+### สิ่งที่ต้องติดตั้งก่อน (ครั้งเดียว)
 
-**วิธีแก้ถ้าติดตั้งไม่ผ่าน:**
-1. สร้างโฟลเดอร์ `C:\CS462\`
-2. ย้ายโปรเจกต์ไปไว้ที่นั่น
-3. ลบโฟลเดอร์ `venv` (ถ้ามี) แล้วดับเบิลคลิก `run.bat` ใหม่
+- **Python 3.10 – 3.12** → https://www.python.org/downloads/
+- ตอนติดตั้งให้เช็ค **"Add Python to PATH"** ด้วย
 
----
+### รันโปรแกรม
 
-## วิธีติดตั้งและรัน
+1. แตก zip หรือ clone repo ไว้ที่ไหนก็ได้
+2. ดับเบิลคลิก **`run.bat`**
+3. ครั้งแรกจะติดตั้ง dependencies ให้อัตโนมัติ (ใช้เวลา ~5 นาที)
+4. เปิดเบราว์เซอร์ไปที่ `http://localhost:5000`
 
-### วิธีที่ 1 — ดับเบิลคลิก (แนะนำ)
-
-ดับเบิลคลิกที่ `run.bat` — จะติดตั้ง dependencies และเปิด server ให้อัตโนมัติ
-
-จากนั้นเปิดเบราว์เซอร์ไปที่ `http://localhost:5000`
-
-### วิธีที่ 2 — Command Line
-
-```bash
-pip install -r requirements.txt
-python app.py
-```
+> **หมายเหตุ**: dependencies จะถูกติดตั้งที่ `C:\cs462venv\` เสมอ
+> ไม่ว่าจะวางโปรเจกต์ไว้ที่ไหนก็ตาม จึงไม่มีปัญหา path ยาวเกิน
 
 ---
 
-## (Optional) Evaluate model
+## (Optional) สำหรับนักพัฒนา
+
+### Evaluate model
 
 ต้องมี dataset อยู่ที่ `dataset_thai_v4/dataset_thai_v4/`
 
@@ -50,3 +40,8 @@ python evaluate.py
 ```
 
 จะสร้างไฟล์: `confusion_matrix.png`, `roc_curves.png`, `classification_report.txt`
+
+### Train model (ใช้ Google Colab)
+
+เปิดไฟล์ `Train_thainumModel.py` ใน Google Colab เท่านั้น
+(ไฟล์นี้ใช้คำสั่ง `!apt-get` ที่รันได้เฉพาะบน Colab/Linux)
