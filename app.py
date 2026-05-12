@@ -197,9 +197,9 @@ def reset_model():
     return jsonify({"success": True, "message": "Reverted to original model.", "model_info": _model_info})
 
 
+load_original_model()
+
 if __name__ == "__main__":
-    print("Loading model…")
-    load_original_model()
     print("Starting server on http://localhost:5000")
     import threading, webbrowser
     threading.Timer(1.0, lambda: webbrowser.open("http://localhost:5000")).start()
